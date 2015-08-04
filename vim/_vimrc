@@ -1,0 +1,265 @@
+
+set nocompatible
+
+call pathogen#infect()
+syntax enable 
+set nowrap
+
+noremap <UP> <NOP>
+noremap <DOWN> <NOP>
+noremap <RIGHT> <NOP>
+noremap <LEFT> <NOP>
+
+
+inoremap <UP> <NOP>
+inoremap <DOWN> <NOP>
+inoremap <RIGHT> <NOP>
+inoremap <LEFT> <NOP>
+
+filetype on
+filetype plugin on
+filetype plugin indent on 
+
+if &t_Co >= 256 || has("gui_running")
+	colorscheme solarized
+ 	let g:solarized_underline=0
+ "autocmd BufNewFile,BufRead *.tex,*.txt set background=light 
+ "autocmd BufNewFile,BufRead *.tex,*.txt colorscheme solarized 
+endif
+
+if &t_Co > 2 || has("gui_running")
+	" switch syntax highlighting on, when the terminal has colors
+	syntax on
+endif
+
+if has("gui_running")
+	set guioptions-=T
+endif
+
+set nospell
+"autocmd BufNewFile,BufRead *.tex,*.txt set spell
+autocmd BufNewFile,BufRead *.tex,*.txt set wrap
+"autocmd BufNewFile,BufRead *.tex,*.txt 
+
+"let g:acp_behaviorKeywordLength = 5 
+
+
+"define mapleader
+let mapleader = "," 
+let localleader = "," 
+let g:C_MapLeader  = ','
+
+"hide buffers instead of closing
+set hidden
+
+"powerline:
+"set t_Co=256
+set laststatus=2
+set encoding=utf-8
+
+"syntax on
+
+
+"highlight space linebreak etc
+set listchars=tab:>.,trail:.,extends:…,nbsp:.
+
+
+au FileType *exec("setlocal dictionary+=".$HOME."/vimfiles/dictionaries/".expand('<amatch>'))
+
+
+let tlist_xbase_settings='xbase;m:METHODS;f:FUNCTIONS;c:CLASSES;p:PROCEDURES;s:SECTIONS'
+let Tlist_Show_One_File=1
+
+"line wrap:
+set linebreak
+let s:extfname = expand("%:e")
+
+set autoindent
+set copyindent
+set shiftwidth=4
+set shiftround
+set noautochdir
+set number
+"set showmatch
+set smarttab
+set ignorecase
+set smartcase
+set smartindent
+set incsearch
+set backspace=2
+set title
+set hlsearch
+
+
+set browsedir=current           " which directory to use for the file browser
+set complete+=k                 " scan the files given with the 'dictionary' option
+set shiftwidth=4                " number of spaces to use for each step of indent
+set showcmd                     " display incomplete commands
+set smartindent                 " smart autoindenting when starting a new line
+set tabstop=4                   " number of spaces that a <Tab> counts for
+set wildmenu                    " command-line completion in an enhanced mode
+
+set history=1000
+set undolevels=2000
+
+set nobackup
+set noswapfile
+set autoread
+
+"shortcuts
+"----------------
+"
+map <p> "0 p <cr> 
+"Projektweite Suche nach Wort unter cursor: 
+" die Dateien müssen vorher in args geladen sein (sihe argsadd)
+map <s-c-f> yiw:vimgrep /<c-r>0/j ## <cr>:cw<cr>
+imap <s-c-f> <ESC> <s-c-f>
+
+"Projektweite Suche nach Variable (VAR/LOCAL) unter cursor: 
+nmap <leader>sa yiw:vimgrep /^[ \t]*\(VAR\\|LOCAL\)[ \t]\+[a-zA-Z0-9;,_\[\] ]*\<<c-r>0\>/j ## 
+"Das Gleiche nur für aktuellen buffer
+nmap <leader>sb yiw:vimgrep /^[ \t]*\(VAR\\|LOCAL\)[ \t]\+[a-zA-Z0-9;,_\[\] ]*\<<c-r>0\>/j % 
+
+
+map <silent><c-l> :silent nohl<cr>
+map <silent><c-s> :w <cr>
+map <silent><c-k> :w<cr>:make<cr>
+map <silent><F8> :TlistToggle <cr>
+map <silent><F9> :Project <cr>
+
+"BurSurf
+nmap <silent><c-tab> :BufSurfBack<cr>
+nmap <silent><c-s-tab> :BufSurfForward<cr>
+
+nmap <silent><c-b> :CtrlPBuffer<cr>
+nmap <silent><leader>p :CtrlPMRUFiles<cr>
+
+nnoremap ; q:
+
+
+"Projektweite Suche nach Definition unter Cursor
+nmap <F12> yiw:Gtags <c-r>0
+
+imap <F8> <ESC><F8>a
+imap <F12> <ESC><F12>
+
+"Folding
+ nmap <leader><space> za
+"Folding Darstellung
+set fillchars=fold:\.,vert:\|
+"farbe des aktuellen Folds: (nur im Darkmode! sonst per Hand anpassen!)
+highlight currfold guibg='#174652'
+set foldlevel=1000
+
+"Markiere aktuellen fold
+nmap <silent><F2> [z<s-v>]z<esc><c-o><c-o>:match currfold /\%>'<.\%<'>./<cr>zz
+nmap <silent><s-F2> :match<cr>
+nmap <F3> [z
+nmap <F4> ]z
+
+
+
+"winmanager
+map <c-w><c-t> :WMToggle <cr>
+
+
+
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+set shellslash
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+"LaTeX default folding:
+
+let g:Imap_UsePlaceHolders = 0
+let Tex_FoldedSections="part,section,%%fakesection,subsection,subsubsection"
+let Tex_HotKeyMappings="align,align*,figure"
+"LaTeX cuto-completion in multiple files: 
+set grepprg=grep\ -nH\ $*
+set winaltkeys=no
+imap <C-L> <Plug>Tex_LeftRight
+
+
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='10,\"100,:20,%,n~/.viminfo
+
+" when we reload, tell vim to restore the cursor to the saved position
+augroup JumpCursorOnEdit
+au!
+autocmd BufReadPost *
+\ if expand("<afile>:p:h") !=? $TEMP |
+\ if line("'\"") > 1 && line("'\"") <= line("$") |
+\ let JumpCursorOnEdit_foo = line("'\"") |
+\ let b:doopenfold = 1 |
+\ if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+\ let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+\ let b:doopenfold = 2 |
+\ endif |
+\ exe JumpCursorOnEdit_foo |
+\ endif |
+\ endif
+" Need to postpone using "zv" until after reading the modelines.
+autocmd BufWinEnter *
+\ if exists("b:doopenfold") |
+\ exe "normal zv" |
+\ if(b:doopenfold > 1) |
+\ exe "+".1 |
+\ endif |
+\ unlet b:doopenfold |
+\ endif
+augroup END
+
+source $HOME/vimfiles/plugin/mark.vim 
+
+noremap <C-F> g<C-]>  
+
+let mapleader = ","
+map n nzz
+map <leader>e :cn<CR>zz 
+map <leader>sv :source C:\Users\Entwicklung\_vsvimrc <CR>
+map <Leader>h I/* <ESC>14a=<Esc>a <Esc>A <ESC>14a=<ESC>a */<ESC>^^WW
+map <Leader>l ^^wa=<ESC>$bba=<ESC>^^
+map <Leader>L ^^w2a=<ESC>$bb2a=<ESC>^^
+map <Leader>k ^^wx<ESC>$bbx<ESC>^^
+map <Leader>K ^^wxx<ESC>$bbxx<ESC>^^
+map <Leader>H ^^d$O/* <ESC>48a=<ESC>a */<ESC>o/* <ESC>49a <ESC>a*/<ESC>2hmx^^3lp`xd$a */<ESC>o/* <ESC>48a=<ESC>a */<ESC>
+map <Leader>doc ^^i/*! <Esc>o  \brief <Esc>o\details <Esc>o@author A. Fedoseew <Esc>o<Esc>^^^d$i*/<Esc> 3k $ i 
+map <Leader>for diw Ofor(int <Esc>pa=0; <Esc>pa; ++<Esc>pa)<CR>{<CR>}<Esc>2k 2Wa
+map <Leader>mfc ^^y2w O<Esc>pyiwa <ESC>p:s/m_//<CR>bbea(){ return <ESC>$a; };<ESC>yyO<ESC>pciwvoid<ESC>wiset<ESC>l~<ESC>j^^yiwkwwa const <ESC>pa& value <ESC>/return<CR>diwdwea = value<ESC>j^^iconst <ESC>wea&<ESC>:nohl<CR>
+
+
+"ctags
+
+set tags+=~\vimfiles\tags\cpp
+set tags+=~\vimfiles\tags\qt4
+
+" build tags of own project
+map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 0 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview

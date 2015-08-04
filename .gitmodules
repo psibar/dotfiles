@@ -1,0 +1,9 @@
+[submodule "ctrlp.vim"]
+	path = ctrlp.vim
+	url = ./vim/vimfiles/bundle/ctrlp.vim
+[submodule "syntastic"]
+	path = syntastic
+	url = ./vim/vimfiles/bundle/syntastic
+[submodule "vim-powerline"]
+	path = vim-powerline
+	url = ./vim/vimfiles/bundle/vim-powerline
