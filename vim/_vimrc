@@ -5,10 +5,6 @@ call pathogen#infect()
 syntax enable 
 set nowrap
 
-noremap <UP> <NOP>
-noremap <DOWN> <NOP>
-noremap <RIGHT> <NOP>
-noremap <LEFT> <NOP>
 
 "German Keyboard bindings
 noremap ö ;
@@ -17,6 +13,7 @@ noremap ü [
 noremap + ]
 noremap Ö {
 noremap Ä }
+nnoremap - /
 
 "Block bad habits
 inoremap <UP> <NOP>
@@ -99,7 +96,6 @@ set backspace=2
 set title
 set hlsearch
 
-
 set browsedir=current           " which directory to use for the file browser
 set complete+=k                 " scan the files given with the 'dictionary' option
 set shiftwidth=4                " number of spaces to use for each step of indent
@@ -117,6 +113,9 @@ set autoread
 
 "shortcuts
 "----------------
+
+noremap <C-s> :w
+inoremap <C-s> <esc> <C-s>
 "
 "Projektweite Suche nach Wort unter cursor: 
 " die Dateien müssen vorher in args geladen sein (sihe argsadd)
@@ -141,8 +140,6 @@ nmap <silent><c-s-tab> :BufSurfForward<cr>
 
 nmap <silent><c-b> :CtrlPBuffer<cr>
 nmap <silent><leader>p :CtrlPMRUFiles<cr>
-
-nnoremap ; q:
 
 
 "Projektweite Suche nach Definition unter Cursor
@@ -239,6 +236,9 @@ augroup END
 source $HOME/vimfiles/plugin/mark.vim 
 
 noremap <C-F> g<C-]>  
+
+"c++ block (entsprich Ctrl-+)
+nnoremap <C-]> o{<cr><cr>}<esc>ki
 
 let mapleader = ","
 map n nzz

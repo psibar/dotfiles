@@ -1,0 +1,75 @@
+
+
+
+"Block bad habits
+inoremap <UP> <NOP>
+inoremap <DOWN> <NOP>
+inoremap <RIGHT> <NOP>
+inoremap <LEFT> <NOP>
+
+"German Keyboard optimization
+inoremap <C-;> <Esc>
+noremap ö ;
+noremap ä '
+noremap ü [
+noremap + ]
+noremap Ö {
+noremap Ä }
+nnoremap - /
+
+set number
+set ignorecase
+set smartcase
+set incsearch
+set backspace=2
+
+set noet ci pi sts=0 sw=4 ts=4
+
+set hlsearch
+" CTRL-X and SHIFT-Del are Cut
+vnoremap <C-X> "+x
+vnoremap <S-Del> "+x
+
+" CTRL-C and CTRL-Insert are Copy
+vnoremap <C-C> "+y
+vnoremap <C-Insert> "+y
+
+" CTRL-V and SHIFT-Insert are Paste
+"map <C-V>		"+gP
+map <C-L>	:nohl<cr>
+map <S-Insert>		"+gP
+"imap <C-V>		<Esc>"+gpa
+
+"cmap <C-V>		<C-R>+
+cmap <S-Insert>		<C-R>+
+
+imap <S-Insert>		<C-V>
+vmap <S-Insert>		<C-V>
+
+" Use CTRL-Q to do what CTRL-V used to do
+noremap <C-P>		<C-V>
+
+
+
+" Eigene Shortcuts/Snippets
+
+noremap <C-s> :w
+inoremap <C-s> <esc> <C-s>
+"c++ Block einfügen (entspricht Eingabe Ctrl-+ auf deutscher Tastatur
+nnoremap <C-]> o{<cr><cr>}<esc>ki
+
+nnoremap zh [z
+nnoremap zl ]z
+let mapleader = ","
+map n n zz
+map <leader> e :cn<CR>zz 
+map <leader>sv :source C:\Users\Entwicklung\_vsvimrc <CR>
+map <Leader>h dd O/* <ESC>14a=<Esc> p k J $a <ESC>14a=<ESC>a */ 
+map <Leader>l ^^wa=<ESC>$bba=<ESC>^^
+map <Leader>L ^^w2a=<ESC>$bb2a=<ESC>^^
+map <Leader>k ^^wx<ESC>$bbx<ESC>^^
+map <Leader>K ^^wxx<ESC>$bbxx<ESC>^^
+map <Leader>H ^^d$O/* <ESC>48a=<ESC>a */<ESC>o/* <ESC>49a <ESC>a*/<ESC>2hmx^^3lp`xd$a */<ESC>o/* <ESC>48a=<ESC>a */<ESC>
+map <Leader>doc ^^i/*! <Esc>o  \brief <Esc>o\details <Esc>o@author A. Fedoseew <Esc>o<Esc>^^^d$i*/<Esc> 3k $ i 
+map <Leader>for diw Ofor(int <Esc>pa=0; <Esc>pa; ++<Esc>pa)<CR>{<CR>}<Esc>2k 2Wa
+map <Leader>mfc ^^y2w O<Esc>pyiwa <ESC>p:s/m_//<CR>bbea(){ return <ESC>$a; };<ESC>yyO<ESC>pciwvoid<ESC>wiset<ESC>l~<ESC>j^^yiwkwwa const <ESC>pa& value <ESC>/return<CR>diwdwea = value<ESC>j^^iconst <ESC>wea&<ESC>:nohl<CR>
