@@ -10,7 +10,15 @@ noremap <DOWN> <NOP>
 noremap <RIGHT> <NOP>
 noremap <LEFT> <NOP>
 
+"German Keyboard bindings
+noremap ö ;
+noremap ä '
+noremap ü [
+noremap + ]
+noremap Ö {
+noremap Ä }
 
+"Block bad habits
 inoremap <UP> <NOP>
 inoremap <DOWN> <NOP>
 inoremap <RIGHT> <NOP>
@@ -34,6 +42,7 @@ endif
 
 if has("gui_running")
 	set guioptions-=T
+	set guioptions-=m
 endif
 
 set nospell
@@ -109,7 +118,6 @@ set autoread
 "shortcuts
 "----------------
 "
-map <p> "0 p <cr> 
 "Projektweite Suche nach Wort unter cursor: 
 " die Dateien müssen vorher in args geladen sein (sihe argsadd)
 map <s-c-f> yiw:vimgrep /<c-r>0/j ## <cr>:cw<cr>
@@ -151,11 +159,15 @@ set fillchars=fold:\.,vert:\|
 highlight currfold guibg='#174652'
 set foldlevel=1000
 
+"folds
 "Markiere aktuellen fold
-nmap <silent><F2> [z<s-v>]z<esc><c-o><c-o>:match currfold /\%>'<.\%<'>./<cr>zz
-nmap <silent><s-F2> :match<cr>
-nmap <F3> [z
-nmap <F4> ]z
+nnoremap <silent><F2> [z<s-v>]z<esc><c-o><c-o>:match currfold /\%>'<.\%<'>./<cr>zz
+nnoremap <silent><s-F2> :match<cr>
+nnoremap <F3> [z
+nnoremap <F4> ]z
+nnoremap zh [z
+nnoremap zl ]z
+
 
 
 
