@@ -56,7 +56,7 @@ noremap <C-P>		<C-V>
 noremap <C-s> :w
 inoremap <C-s> <esc> <C-s>
 "c++ Block einfügen (entspricht Eingabe Ctrl-+ auf deutscher Tastatur
-nnoremap <C-]> o{<cr><cr>}<esc>ki
+nnoremap <C-]> o{<esc>o}<esc>O
 
 nnoremap zh [z
 nnoremap zl ]z

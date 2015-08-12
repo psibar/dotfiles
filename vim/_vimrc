@@ -238,7 +238,7 @@ source $HOME/vimfiles/plugin/mark.vim
 noremap <C-F> g<C-]>  
 
 "c++ block (entsprich Ctrl-+)
-nnoremap <C-]> o{<cr><cr>}<esc>ki
+nnoremap <C-]> o{<esc>o}<esc>O
 
 let mapleader = ","
 map n nzz
